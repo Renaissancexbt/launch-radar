@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="190" viewBox="0 0 1100 190">
+  <defs>
+    <style>
+      .t { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+      .box { fill: #0f1623; stroke: #243247; stroke-width: 1.5; rx: 10; }
+      .h { fill: #e5e7eb; font-size: 16px; font-weight: 700; }
+      .s { fill: #9ca3af; font-size: 12px; }
+      .arrow { stroke: #4ade80; stroke-width: 2; fill: none; marker-end: url(#m); }
+    </style>
+    <marker id="m" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0 0 L8 4 L0 8 Z" fill="#4ade80"/>
+    </marker>
+  </defs>
+  <rect width="1100" height="190" fill="#0b0f17"/>
+
+  <g class="t">
+    <rect class="box" x="20" y="45" width="170" height="100"/>
+    <text class="h" x="35" y="78">X search</text>
+    <text class="s" x="35" y="100">6 default queries</text>
+    <text class="s" x="35" y="118">filter:links, originals</text>
+
+    <rect class="box" x="235" y="45" width="170" height="100"/>
+    <text class="h" x="250" y="78">phrases</text>
+    <text class="s" x="250" y="100">~150 in 6 groups</text>
+    <text class="s" x="250" y="118">+ stop phrases</text>
+
+    <rect class="box" x="450" y="45" width="170" height="100"/>
+    <text class="h" x="465" y="78">entities</text>
+    <text class="s" x="465" y="100">link · host · author</text>
+    <text class="s" x="465" y="118">chain · category</text>
+
+    <rect class="box" x="665" y="45" width="170" height="100"/>
+    <text class="h" x="680" y="78">author</text>
+    <text class="s" x="680" y="100">age · tweets · pinned</text>
+    <text class="s" x="680" y="118">growth 10/30/60m</text>
+
+    <rect class="box" x="880" y="45" width="200" height="100"/>
+    <text class="h" x="895" y="78">score 0–100</text>
+    <text class="s" x="895" y="100">≥ 40 feed</text>
+    <text class="s" x="895" y="118">≥ 70 alert</text>
+
+    <path class="arrow" d="M190 95 L228 95"/>
+    <path class="arrow" d="M405 95 L443 95"/>
+    <path class="arrow" d="M620 95 L658 95"/>
+    <path class="arrow" d="M835 95 L873 95"/>
+  </g>
+</svg>
