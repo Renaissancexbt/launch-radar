@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "launch-radar"
-version = "0.1.0"
+version = "0.2.0"
 description = "Find brand-new project launches on X before the crowd does."
 readme = "README.md"
 license = {text = "MIT"}

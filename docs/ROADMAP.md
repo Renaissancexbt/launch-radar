@@ -1,9 +1,11 @@
 # Roadmap
 
 ## 0.2
-- [ ] `launch-radar watch` — poll the default queries on a timer, append new posts to a local sqlite file
+- [x] `launch-radar watch` — poll a file/folder of dumps on a timer, remember everything in a local sqlite file
+- [x] Dedup by author + link/CA
+- [x] `launch-radar history` — what the radar has seen, newest first or best first
 - [ ] Re-poll engagement at 10 / 30 / 60 minutes, feed growth into the score
-- [ ] Dedup by author + link/CA
+- [ ] Collectors that write dumps for `watch` (bookmarklet, saved-search exporter)
 
 ## 0.3
 - [ ] Link liveness check (does the site resolve, is there a GitHub)

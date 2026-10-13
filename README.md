@@ -144,6 +144,7 @@ you can read why in two files. Nothing here is a model, a firehose or a licensed
 - **🔎 Just look around:** `launch-radar queries --urls` prints six X searches; open them with *Latest* selected and read what the radar would read.
 - **📂 Bring a dump:** export posts from any tool into a JSON list and run `launch-radar scan`.
 - **⚡ Check one post:** `launch-radar check "..."` scores a text you paste.
+- **👀 Leave it running:** `launch-radar watch dumps/` polls a folder of dumps and prints only what it has never seen. Memory lives in one sqlite file.
 - **🧩 Build on it:** `from launch_radar import Post, rank` and feed it from an extension, a bot or a cron job.
 - **🌱 Teach it a phrase:** add one line to `keywords.py`, one post to the sample set, one assertion. That is a complete pull request.
 
@@ -226,13 +227,37 @@ exists to catch within minutes. Full reasoning in [docs/SCORING.md](docs/SCORING
 
 ## Your first radar session
 
-- [ ] Install and run `pytest`; 21 green in under a second.
+- [ ] Install and run `pytest`; 25 green in under a second.
 - [ ] Scan the sample set and read the reasons under the top three.
 - [ ] Print the queries and open the `direct` one in X on **Latest**.
 - [ ] Copy three real posts into a JSON file and scan them.
 - [ ] Find one the radar got wrong.
 - [ ] Change a weight or add a phrase; run `pytest`; see what moved.
 - [ ] Open a pull request with the phrase, the post and one assertion.
+
+## Leave it running
+
+```
+launch-radar watch dumps/ --every 60 --min 40
+```
+
+Drop JSON dumps into `dumps/` from whatever collects them for you: a browser extension,
+a bot, a saved search. Every minute the radar re-reads the folder, scores everything,
+and prints only the posts it has not reported before. A half-written file is skipped
+and picked up on the next pass.
+
+Memory is a single sqlite file (`radar.db` by default, zero extra dependencies):
+
+```
+launch-radar history            # newest first, with the score at the time
+launch-radar history --top      # best ever
+launch-radar history --min 70   # alerts only
+```
+
+Dedup is by **author + strongest evidence**: the same handle pointing at the same
+contract or the same link is one launch, however many times it is posted. A different
+handle with the same link is a different post and will show up, because who says it is
+part of the signal.
 
 ## Input format
 
@@ -297,9 +322,8 @@ library. See [architecture](docs/ARCHITECTURE.md).
 
 ## What's next
 
-- **`launch-radar watch`**: poll the default queries on a timer, append new posts to a local sqlite file.
 - **Re-poll** engagement at 10 / 30 / 60 minutes automatically and feed growth into the score.
-- **Dedup**: one project = one author + one link/CA.
+- **Collectors** that write dumps for `watch`: a bookmarklet, a saved-search exporter.
 - **Link liveness** check: does the site resolve, is there a repo behind it.
 - **Telegram alerts** for score ≥ 70.
 - **Browser extension** that scores posts in the timeline and highlights alerts inline.
@@ -329,14 +353,15 @@ launch_radar/
   models.py          Post, Author, Candidate and the from_dict normaliser
   scoring.py         score(post) → Candidate with reasons; rank(posts)
   queries.py         X advanced-search strings and x.com URLs
-  cli.py             queries / scan / check
+  store.py           sqlite memory: ingest, dedup key, history
+  cli.py             queries / scan / check / watch / history
 docs/
   SCORING.md         every weight and why
   ARCHITECTURE.md    modules, pipeline, design rules
   ROADMAP.md         what comes next
   img/               hero, signals, field guide, modes, score ladder, pipeline
 examples/            sample_posts.json: seven product launches, three of them traps
-tests/               21 tests pinning phrases, entities and the sample ranking
+tests/               25 tests pinning phrases, entities, the store and the sample ranking
 .github/workflows/   pytest on 3.10 and 3.12
 ```
 
